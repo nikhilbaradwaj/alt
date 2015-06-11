@@ -55,7 +55,8 @@ class AltStore {
           return actionHandler.call(model, payload.data, payload.action)
         }, payload)
 
-        if (result !== false && !this.preventDefault) this.emitChange()
+        const shouldUpdate = this.StoreModel.config.shouldStoreUpdate && this.StoreModel.config.shouldStoreUpdate(this.state)
+        if (result !== false && !this.preventDefault && shouldUpdate) this.emitChange()
       }
 
       if (model.reduce) {
